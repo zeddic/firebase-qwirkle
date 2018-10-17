@@ -1,0 +1,24 @@
+
+
+@import '~@angular/material/theming';
+
+:host {
+  &.color-0 { color: map_get($mat-red, 500); }
+  &.color-1 { color: map_get($mat-orange, 500); }
+  &.color-2 { color: map_get($mat-yellow, 500); }
+  &.color-3 { color: map_get($mat-green, 500); }
+  &.color-4 { color: map_get($mat-blue, 500); }
+  &.color-5 { color: map_get($mat-deep-purple, 500); }
+
+
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  background: black;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+// red, orange, yellow, green, blue, purple
