@@ -1,6 +1,6 @@
 <div class="board">
-  <div *ngFor="let row of board.squares.select() | async" class="row">
-    <div *ngFor="let square of row.cols"
+  <div *ngFor="let row of (board.squares.select() | async); trackBy: trackByRow" class="row">
+    <div *ngFor="let square of row.cols; trackBy: trackBySquare"
        class="square"
        [ngClass]="{'pending': square.pending, 'valid': square.valid}"
        cdkDrop 

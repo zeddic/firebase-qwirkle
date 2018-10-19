@@ -1,7 +1,8 @@
 import {CdkDrag, CdkDragDrop, CdkDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ChangeDetectorRef, Component, QueryList, ViewChildren} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {BoardSquare, Tile} from './shared/models/models';
+import {BoardRow, BoardSquare, Tile} from './shared/models/models';
+import * as points from './shared/models/points';
 import * as tiles from './shared/models/tiles';
 import {BoardStore} from './shared/stores/board_store';
 import {GameStore} from './shared/stores/game_store';
@@ -79,5 +80,13 @@ export class AppComponent {
 
       return this.board.isMoveValid(move);
     };
+  }
+
+  trackByRow(row: BoardRow): number {
+    return row.id;
+  }
+
+  trackBySquare(square: BoardSquare) {
+    return points.encode(square);
   }
 }
