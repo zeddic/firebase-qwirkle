@@ -1,9 +1,8 @@
-import {create, Store, StoreValue} from "../store/store";
-import {BoardRow, BoardSquare, Move, Point, Tile, GameState} from "../models/models";
-import * as points from '../models/points';
-import * as moves from '../models/moves';
-import {TileMap} from "../models/tile_map";
 import {Board} from "../models/board";
+import {BoardRow, BoardSquare, GameState, Move, Point, Tile} from "../models/models";
+import * as points from '../models/points';
+import {create, Store, StoreValue} from "../store/store";
+import {calculateScore} from "../models/scoring";
 
 export class BoardStore {
   private readonly board: StoreValue<Board>;
@@ -28,39 +27,6 @@ export class BoardStore {
   }
 }
 
-function calculateScore(board: Board): number {
-
-  // Edge case: first move and the user placed one block. This is the
-  // only situation where someone can get a point for a run of length 1.
-  if (board.numTiles() === 1 && board.getPending().length === 1) {
-    return 1;
-  }
-
-  const runs: Point[][] = [];
-  for (const point of board.getPending()) {
-    runs.push(expandHorizontal(point, board));
-    runs.push(expandVertical(point, board));
-  }
-
-  const unique = dedupRuns(runs);
-  const values = unique.map(scoreRun);
-  const sum = values.reduce((accum, val) => accum + val, 0);
-
-  return sum;
-}
-
-function scoreRun(moves: Point[]) {
-  if (moves.length === 1) {
-    return 0;
-  }
-
-  let score = moves.length;
-  if (moves.length === 6) {
-    score += 6;
-  }
-
-  return score;
-}
 
 /**
  * The minimize size (in every direction from the origin) of the board.
@@ -127,61 +93,4 @@ function minOf(values: number[], initial: number = Number.MAX_VALUE): number {
 
 function maxOf(values: number[], initial: number = Number.MIN_VALUE): number {
   return values.reduce((accum, current) => Math.max(accum, current), initial);
-}
-
-function expandVertical(point: Point, board: Board): Move[] {
-  const moves: Move[] = [];
-
-  // Find the first tile in the run.
-  let pointer = point;
-  while (board.hasTile(points.above(pointer))) {
-    pointer = points.above(pointer);
-  }
-
-  // Add below.
-  while (board.hasTile(pointer)) {
-    const tile = board.getTile(pointer);
-    moves.push({...pointer, tile})
-    pointer = points.below(pointer);
-  }
-
-  return moves;
-}
-
-function expandHorizontal(point: Point, board: Board): Move[] {
-  const moves: Move[] = [];
-
-  // Find the first tile in the run.
-  let pointer = point;
-  while (board.hasTile(points.left(pointer))) {
-    pointer = points.left(pointer);
-  }
-
-  // Add right.
-  while (board.hasTile(pointer)) {
-    const tile = board.getTile(pointer);
-    moves.push({...pointer, tile})
-    pointer = points.right(pointer);
-  }
-
-  return moves;
-}
-
-function dedupRuns(runs: Point[][]): Point[][] {
-  const seen = new Set<string>();
-  const unique: Point[][] = [];
-
-  for (let run of runs) {
-    const key = encodeRun(run);
-    if (!seen.has(key)) {
-      unique.push(run);
-      seen.add(key)
-    }
-  }
-
-  return unique;
-}
-
-function encodeRun(run: Point[]) {
-  return run.map(p => points.encode(p)).join(';');
 }
