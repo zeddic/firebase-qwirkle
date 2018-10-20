@@ -2,6 +2,7 @@
 export interface Tile {
   color: number;
   shape: number;
+  id: number;
 }
 
 export interface Point {
@@ -30,14 +31,22 @@ export interface BoardRow {
 
 export interface GameState {
   id?: string;
-  doc?: GameDoc;
   held?: Tile;
+  doc?: GameDoc;
+  playerId?: string;
 }
 
 
 
 // Document models stored in Firestore
 
+export interface GameDoc {
+  board: GameDocBoard;
+  bag: Tile[];
+  players: GameDocPlayer[];
+  currentPlayer: string;
+  stage: GameStage;
+}
 
 export interface GameDocPlayer {
   name: string;
@@ -50,9 +59,8 @@ export interface GameDocBoard {
   pending: Point[];
 }
 
-export interface GameDoc {
-  board: GameDocBoard;
-  bag: Tile[];
-  players: GameDocPlayer[];
-  currentPlayer: string;
+export enum GameStage {
+  SETUP = 'setup',
+  PLAYING = 'playing',
+  DONE = 'complete',
 }

@@ -8,6 +8,7 @@ export class BoardStore {
   private readonly board: StoreValue<Board>;
   public readonly squares: StoreValue<BoardRow[]>;
   public readonly score: StoreValue<number>;
+  public readonly numMovesMade: StoreValue<number>;
 
   constructor(readonly store: Store<GameState>) {
     const boardDoc = store.value(s => s.doc && s.doc.board);
@@ -20,13 +21,13 @@ export class BoardStore {
     const held = store.value(s => s.held);
     this.squares = create(this.board, held, createSquares);
     this.score = create(this.board, calculateScore);
+    this.numMovesMade = this.board.map(b => b.getPending().length);
   }
 
   isMoveValid(move: Move): boolean {
     return this.board.snapshot().isMoveValid(move);
   }
 }
-
 
 /**
  * The minimize size (in every direction from the origin) of the board.

@@ -8,20 +8,21 @@ import {Tile, Point} from "./models";
  */
 export function createSet(): Tile[] {
   const tiles: Tile[] = [];
+  let ids = 1;
   for (let color = 0; color < 6; color++) {
     for (let shape = 0; shape < 6; shape++) {
-      tiles.push({color, shape});
-      tiles.push({color, shape});
-      tiles.push({color, shape});
+      tiles.push({color, shape, id: ids++});
+      tiles.push({color, shape, id: ids++});
+      tiles.push({color, shape, id: ids++});
     }
   }
   return shuffle(tiles);
 }
 
 /**
- * Randomly shuffles tiles.
+ * Randomly shuffles tiles. Mutates the original list.
  */
-function shuffle(tiles: Tile[]): Tile[] {
+export function shuffle(tiles: Tile[]): Tile[] {
   return tiles.sort(() => Math.random() - Math.random());
 }
 
@@ -41,3 +42,7 @@ export function take(from: Tile[], desiredAmount: number): Tile[] {
 
   return toReturn;
 }
+
+// export function equal(a: Tile, b: Tile) {
+//   return a.color === b.color && a.shape && b.shape;
+// }

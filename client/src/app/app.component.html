@@ -13,6 +13,10 @@
   </div>
 </div>
 
+<!-- <section>
+  <pre>{{ player | async | json}}</pre>
+</section> -->
+
 <div
     class="tile-tray"
     cdkDrop
@@ -20,7 +24,7 @@
     [cdkDropConnectedTo]="drops"
     (cdkDropDropped)="dropInTray($event)">
   <app-tile
-      *ngFor="let tile of playerTiles"
+      *ngFor="let tile of (playerTiles | async)"
       [tile]="tile"
       (click)="pickup(tile)"
       cdkDrag
@@ -36,4 +40,8 @@
   Reset
 </button>
 
-Score: {{ board.score.select() | async }}
+<div *ngIf="player | async as player">
+  Score this turn: {{ board.score.select() | async }}
+  <br>
+  Total score: {{ player .score }}
+</div>
