@@ -65,7 +65,15 @@ export class GameStore {
    */
   readonly currentPlayer: StoreValue<GameDocPlayer>;
 
+  /**
+   * True if the game doc has been loaded / initialized.
+   */
+  readonly loaded: StoreValue<boolean>;
+
   constructor(private readonly db: AngularFirestore) {
+
+    const doc = this.store.value(s => s.doc);
+    this.loaded = doc.map(doc => !!doc);
     this.board = new BoardStore(this.store);
 
     this.player = create(this.store, (state) => {
@@ -89,7 +97,7 @@ export class GameStore {
   load(id: string) {
     this.store.update(s => s.id = id);
 
-    this.doc = this.db.collection('games').doc('id');
+    this.doc = this.db.collection('games').doc(id);
     this.doc.ref.get().then(snap => {
       if (!snap.exists) {
         this.doc.set(createGameDoc());
@@ -168,7 +176,8 @@ export class GameStore {
   }
 
   /**
-   * 
+   * Has the player 'pickup' a tile from thier tile supply. While held, valid
+   * moves will be highlighted.
    */
   pickup(tile: Tile) {
     this.store.update(state => state.held = tile);

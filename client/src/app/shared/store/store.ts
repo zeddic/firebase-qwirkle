@@ -115,7 +115,6 @@ function joinInputs(
 
   const combined = combineLatest(...inputs);
   const transformed = combined.pipe(map(args => {
-    console.log('projector called');
     return projector.apply(this, args);
   }));
 

@@ -8,7 +8,7 @@ const APP_ROUTES: Routes = [
   {path: 'game/:id', component: GameRoomComponent},
   {
     path: '',
-    redirectTo: '/browser',
+    redirectTo: '/game/1',
     pathMatch: 'full'
   },
 ];
