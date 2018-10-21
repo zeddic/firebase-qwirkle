@@ -1,3 +1,9 @@
-<p>
-  browser works!
-</p>
+<ul>
+  <li *ngFor="let game of games | async">
+
+    <a [routerLink]="['/game', game.id]">Game {{game.id}}</a>
+    ({{ game.stage }} / {{ game.numPlayers }} players)
+
+    <pre>{{ game | json}}</pre>
+  </li>
+</ul>
