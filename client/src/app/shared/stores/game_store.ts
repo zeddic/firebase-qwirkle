@@ -158,7 +158,7 @@ export class GameStore {
 
     // Prevent the user playing a tile they don't have.
     const tiles = this.currentPlayer.snapshot().tiles;
-    const playerHasTile = tiles.findIndex(t => t.id === move.tile.id);
+    const playerHasTile = tiles.findIndex(t => t.id === move.tile.id) >= 0;
     if (!playerHasTile) {
       return;
     }
