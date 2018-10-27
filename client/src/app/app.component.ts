@@ -7,6 +7,7 @@ import * as tiles from './shared/models/tiles';
 import {BoardStore} from './shared/stores/board_store';
 import {GameStore} from './shared/stores/game_store';
 import {Observable} from 'rxjs';
+import {AuthService} from './shared/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +15,9 @@ import {Observable} from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+
+  loggedIn = this.authService.isLoggedIn();
+  user = this.authService.user;
+
+  constructor(readonly authService: AuthService) {}
 }

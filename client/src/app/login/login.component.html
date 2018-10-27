@@ -1,3 +1,8 @@
-<p>
-  Login page!
-</p>
+<ng-container *ngIf="!(isLoggedIn | async)">
+  <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
+</ng-container>
+
+<ng-container *ngIf="isLoggedIn | async">
+  <button mat-raised-button (click)="logout()">Logout</button>
+  <a [routerLink]="['/browser']">Browse games</a>
+</ng-container>

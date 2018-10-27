@@ -17,6 +17,7 @@ import {RouterModule} from '@angular/router';
 import {AuthGuard} from './shared/auth/auth.guard';
 import {AuthService} from './shared/auth/auth.service';
 import { LoginComponent } from './login/login.component';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { LoginComponent } from './login/login.component';
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     BrowserAnimationsModule,
     BrowserModule,
     DragDropModule,
