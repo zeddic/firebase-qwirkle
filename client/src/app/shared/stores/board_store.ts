@@ -73,7 +73,7 @@ function createSquares(
     for (let col = left; col <= right; col++) {
       const point = {row, col};
       const move = {row, col, tile: held};
-      const valid = true; //!!held && board.isMoveValid(move);
+      const valid = !!held && board.isMoveValid(move);
 
       cols.push({
         row,

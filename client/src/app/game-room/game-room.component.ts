@@ -79,8 +79,7 @@ export class GameRoomComponent implements OnInit {
     return (drag: CdkDrag) => {
       const tile = drag.data as Tile;
       const move = {row: position.row, col: position.col, tile};
-      return true;
-      //return this.board.isMoveValid(move);
+      return this.board.isMoveValid(move);
     };
   }
 
