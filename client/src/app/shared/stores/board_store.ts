@@ -9,6 +9,7 @@ export class BoardStore {
   public readonly squares: StoreValue<BoardRow[]>;
   public readonly score: StoreValue<number>;
   public readonly numMovesMade: StoreValue<number>;
+  public readonly isValid: StoreValue<boolean>;
 
   constructor(readonly store: Store<GameState>) {
     const boardDoc = store.value(s => s.doc && s.doc.board);
@@ -22,6 +23,7 @@ export class BoardStore {
     this.squares = create(this.board, held, createSquares);
     this.score = create(this.board, calculateScore);
     this.numMovesMade = this.board.map(b => b.getPending().length);
+    this.isValid = this.board.map(b => b.isValid());
   }
 
   isMoveValid(move: Move): boolean {
@@ -71,7 +73,7 @@ function createSquares(
     for (let col = left; col <= right; col++) {
       const point = {row, col};
       const move = {row, col, tile: held};
-      const valid = !!held && board.isMoveValid(move);
+      const valid = true; //!!held && board.isMoveValid(move);
 
       cols.push({
         row,

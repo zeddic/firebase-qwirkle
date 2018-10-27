@@ -42,7 +42,3 @@ export function take(from: Tile[], desiredAmount: number): Tile[] {
 
   return toReturn;
 }
-
-// export function equal(a: Tile, b: Tile) {
-//   return a.color === b.color && a.shape && b.shape;
-// }

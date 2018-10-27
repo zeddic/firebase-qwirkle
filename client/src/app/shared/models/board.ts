@@ -3,6 +3,7 @@ import {BoardRow, BoardSquare, Move, Point, Tile, GameState} from "./models";
 import * as points from './points';
 import * as moves from './moves';
 import {TileMap} from "./tile_map";
+import * as validation from "./board_validation";
 
 export class Board {
   private readonly tileMap: TileMap;
@@ -29,6 +30,10 @@ export class Board {
 
   isMoveValid(move: Move): boolean {
     return moves.isMoveValid(move, this);
+  }
+
+  isValid(): boolean {
+    return validation.isBoardValid(this);
   }
 
   getPendingMoves(): Move[] {

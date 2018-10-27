@@ -152,9 +152,10 @@ export class GameStore {
    */
   performMove(move: Move) {
     // Prevent invalid moves.
-    if (!this.board.isMoveValid(move)) {
-      return;
-    }
+    // TODO(baileys): Add back
+    // if (!this.board.isMoveValid(move)) {
+    //   return;
+    // }
 
     // Prevent the user playing a tile they don't have.
     const tiles = this.currentPlayer.snapshot().tiles;

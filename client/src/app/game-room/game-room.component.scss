@@ -26,7 +26,7 @@
   }
 
   &.valid {
-    background: rgb(85, 170, 6);
+    // background: rgb(85, 170, 6);
   }
 }
 
@@ -44,6 +44,12 @@
   .cdk-drag-placeholder {
     opacity: 0;
   }
-
 }
 
+.valid-true {
+  color: green;
+}
+
+.valid-false {
+  color: red;
+}

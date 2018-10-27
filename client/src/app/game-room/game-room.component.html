@@ -44,6 +44,10 @@
     Reset
   </button>
 
+  <div class="valid-{{ board.isValid.select() | async }}">
+    Board Valid: {{ board.isValid.select() | async }}  
+  </div>
+
   <div *ngIf="player | async as player">
     Score this turn: {{ board.score.select() | async }}
     <br>
