@@ -53,4 +53,10 @@ export class Board {
   getAllOccupiedPoints(): Point[] {
     return Object.keys(this.tiles).map(points.decode)
   }
+
+  getAllMoves(): Move[] {
+    return this.getAllOccupiedPoints().map(p => {
+      return {...p, tile: this.getTile(p)};
+    })
+  }
 }
